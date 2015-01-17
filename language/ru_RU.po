@@ -40,7 +40,7 @@ msgstr "Комментарии"
 #: /var/www/lesson.fam/module/RbComment/view/theme/uikit.phtml:101
 #: /var/www/lesson.fam/module/RbComment/view/theme/default.phtml:141
 msgid "You are signed in as"
-msgstr "Вы вошли как"
+msgstr "Вы авторизированы как"
 
 #: /var/www/lesson.fam/module/RbComment/view/theme/bootstrap3.phtml:110
 #: /var/www/lesson.fam/module/RbComment/view/theme/uikit.phtml:114

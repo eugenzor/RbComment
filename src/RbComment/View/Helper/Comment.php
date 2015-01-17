@@ -37,13 +37,55 @@ class Comment extends AbstractHelper implements ServiceLocatorAwareInterface
 
         $serviceManager = $this->getServiceLocator()->getServiceLocator();
         $viewHelperManager = $serviceManager->get('viewhelpermanager');
+        $config = $serviceManager->get('Config');
 
+        $threadRoutes = $config['rb_comment']['thread_routes'];
+        $routeMatch = $serviceManager->get('Application')->getMvcEvent()->getRouteMatch();
+        $routeName = $routeMatch->getMatchedRouteName();
+        $controllerName = $routeMatch->getParam('controller');
+        $actionName = $routeMatch->getParam('action');
         $uri = $serviceManager->get('router')->getRequestUri()->getPath();
-        $thread = sha1($uri);
+
+        if (empty($threadRoutes)){
+            //There are no thread routes
+            $thread = sha1($uri);
+        }else{
+            //There are thread route
+            if (empty($threadRoutes[$routeName])){
+                //But not for this route
+                $thread = sha1($uri);
+            }else{
+                if (is_array($threadRoutes[$routeName])){
+                    //This route thread contains controller routes
+                    if (empty($threadRoutes[$routeName][$controllerName])){
+                        //But not for this controller
+                        $thread = sha1($uri);
+                    }else{
+                        //etc
+                        if(is_array($threadRoutes[$routeName][$controllerName])){
+                            if (empty($threadRoutes[$routeName][$controllerName][$actionName])){
+                                $thread = sha1($uri);
+                            }else{
+                                $thread = sha1("route/$routeName/controller/$controllerName/action/$actionName");
+                            }
+
+                        }else{
+                            $thread = sha1("route/$routeName/controller/$controllerName");
+                        }
+                    }
+                }else{
+                    //One thread for whole route
+                    $thread = sha1("route/$routeName");
+                }
+            }
+        }
+
+
+
         $validationMessages = $viewHelperManager->get('flashMessenger')
                                                 ->getMessagesFromNamespace('RbComment');
 
-        $config = $serviceManager->get('Config');
+
         $commentTable = $serviceManager->get('RbComment\Model\CommentTable');
         $commentTable->setDateFormat($config['rb_comment']['date_format']);
 

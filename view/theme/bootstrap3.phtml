@@ -1,14 +1,14 @@
-<p class="text-muted">
-    <?php echo count($this->comments) ?>&nbsp;
-    <?php echo $this->translate('Comments') ?>
-</p>
+<div class="rb-comments">
+    <p class="text-muted">
+        <?php echo $this->translate('Comments') ?> <span class="badge"><?php echo count($this->comments) ?></span>
+    </p>
 
-<?php if (count($this->comments)) : ?>
+    <?php if (count($this->comments)) : ?>
 
-    <ul class="media-list">
-        <?php foreach ($this->comments as $comment) : ?>
-            <li id="rbcomment-<?php echo $comment->id ?>" class="media">
-                <?php
+        <ul class="media-list">
+            <?php foreach ($this->comments as $comment) : ?>
+                <li id="rbcomment-<?php echo $comment->id ?>" class="media">
+                    <?php
                     if($this->gravatar)  {
                         echo $this->gravatar(
                             $comment->contact,
@@ -16,26 +16,26 @@
                             array('class' => 'pull-left img-rounded')
                         );
                     }
-                ?>
+                    ?>
 
-                <div class="media-body">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+                    <div class="media-body">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
                             <span class="text-muted">
                                 <?php echo $comment->author ?> ~ <?php echo $comment->published_on ?>
                                 </span>
-                        </div>
-                        <div class="panel-body">
-                            <?php echo nl2br($this->escapeHtml($comment->content)) ?>
+                            </div>
+                            <div class="panel-body">
+                                <?php echo nl2br($this->escapeHtml($comment->content)) ?>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </li>
-        <?php endforeach ?>
-    </ul>
-<?php endif ?>
+                </li>
+            <?php endforeach ?>
+        </ul>
+    <?php endif ?>
 
-<?php
+    <?php
     $this->form->prepare();
 
     echo $this->form()->openTag($this->form);
@@ -43,60 +43,60 @@
     echo $this->formHidden($this->form->get('csrf'));
     echo $this->formHidden($this->form->get('thread')->setValue($this->thread));
     echo $this->formHidden($this->form->get('uri')->setValue($this->uri));
-?>
+    ?>
 
-<?php if(!$this->zfc_user) : ?>
+    <?php if(!$this->zfc_user) : ?>
 
-    <div class="form-group <?php echo isset($this->validationResults->author) ? 'has-error' : '' ?>">
-        <?php
+        <div class="form-group <?php echo isset($this->validationResults->author) ? 'has-error' : '' ?>">
+            <?php
             $author = $this->form->get('author');
             $author->setAttributes(array(
                 'class' => 'form-control ',
             ));
 
             echo $this->formRow($author);
-        ?>
+            ?>
 
-        <?php if (isset($this->validationResults->author)) : ?>
-            <p class="help-block">
-                <?php
-                foreach ((array) $this->validationResults->author as $validationResult) {
-                    echo $validationResult . '<br>';
-                }
-                ?>
-            </p>
-        <?php endif ?>
-    </div>
+            <?php if (isset($this->validationResults->author)) : ?>
+                <p class="help-block">
+                    <?php
+                    foreach ((array) $this->validationResults->author as $validationResult) {
+                        echo $validationResult . '<br>';
+                    }
+                    ?>
+                </p>
+            <?php endif ?>
+        </div>
 
-    <div class="form-group <?php echo isset($this->validationResults->contact) ? 'has-error' : '' ?>">
-        <?php
+        <div class="form-group <?php echo isset($this->validationResults->contact) ? 'has-error' : '' ?>">
+            <?php
 
-        $contact = $this->form->get('contact');
-        $contact->setAttributes(array(
-            'class' => 'form-control ',
-        ));
+            $contact = $this->form->get('contact');
+            $contact->setAttributes(array(
+                'class' => 'form-control ',
+            ));
 
-        echo $this->formRow($contact);
-        ?>
+            echo $this->formRow($contact);
+            ?>
 
-        <?php if (isset($this->validationResults->contact)) : ?>
-            <p class="help-block">
-                <?php
-                foreach ((array) $this->validationResults->contact as $validationResult) {
-                    echo $validationResult . '<br>';
-                }
-                ?>
-            </p>
-        <?php endif ?>
-    </div>
+            <?php if (isset($this->validationResults->contact)) : ?>
+                <p class="help-block">
+                    <?php
+                    foreach ((array) $this->validationResults->contact as $validationResult) {
+                        echo $validationResult . '<br>';
+                    }
+                    ?>
+                </p>
+            <?php endif ?>
+        </div>
 
-<?php else : ?>
+    <?php else : ?>
 
-    <div class="form-group">
-        <?php if($this->zfcUserIdentity()) : ?>
-            <?php echo $this->translate('You are signed in as') ?>
-            <strong>
-                <?php
+        <div class="form-group">
+            <?php if($this->zfcUserIdentity()) : ?>
+                <?php echo $this->translate('You are signed in as') ?>
+                <strong>
+                    <?php
                     $displayName = $this->zfcUserIdentity()->getDisplayname();
 
                     if(empty($displayName)) {
@@ -104,60 +104,61 @@
                     }
 
                     echo $displayName;
-                ?>
-            </strong>
-            <a class="pull-right" href="<?php echo $this->url('zfcuser/logout') ?>">
-                <?php echo $this->translate('Sign Out') ?>
-            </a>
+                    ?>
+                </strong>
+                <a class="pull-right logout" href="<?php echo $this->url('zfcuser/logout') ?>">
+                    <?php echo $this->translate('Sign Out') ?>
+                </a>
 
-            <input type="hidden" name="author" value="<?php echo $this->zfcUserIdentity()->getDisplayname() ?>">
-            <input type="hidden" name="contact" value="<?php echo $this->zfcUserIdentity()->getEmail() ?>">
+                <input type="hidden" name="author" value="<?php echo $this->zfcUserIdentity()->getDisplayname() ?>">
+                <input type="hidden" name="contact" value="<?php echo $this->zfcUserIdentity()->getEmail() ?>">
 
-        <?php else : ?>
-            <?php echo $this->translate('You are not signed in. To be able to comment, please') ?>
-            <a href="<?php echo $this->url('zfcuser/login') ?>">
-                <?php echo $this->translate('Sign In') ?>
-            </a>
-        <?php endif ?>
-    </div>
+            <?php else : ?>
+                <?php echo $this->translate('You are not signed in. To be able to comment, please') ?>
+                <a href="<?php echo $this->url('zfcuser/login') ?>">
+                    <?php echo $this->translate('Sign In') ?>
+                </a>
+            <?php endif ?>
+        </div>
 
-<?php endif ?>
+    <?php endif ?>
 
-<?php if(($this->zfc_user && $this->zfcUserIdentity()) || !$this->zfc_user) : ?>
+    <?php if(($this->zfc_user && $this->zfcUserIdentity()) || !$this->zfc_user) : ?>
 
-    <div class="form-group <?php echo isset($this->validationResults->content) ? 'has-error' : '' ?>">
-        <?php
-        $content = $this->form->get('content');
-        $content->setAttributes(array(
-            'cols' => 120,
-            'rows' => 6,
-            'class' => 'form-control',
-        ));
+        <div class="form-group <?php echo isset($this->validationResults->content) ? 'has-error' : '' ?>">
+            <?php
+            $content = $this->form->get('content');
+            $content->setAttributes(array(
+                'cols' => 120,
+                'rows' => 6,
+                'class' => 'form-control',
+            ));
 
-        echo $this->formRow($content);
-        ?>
+            echo $this->formRow($content);
+            ?>
 
-        <?php if (isset($this->validationResults->content)) : ?>
-            <p class="help-block">
-                <?php
-                foreach ((array) $this->validationResults->content as $validationResult) {
-                    echo $validationResult . '<br>';
-                }
-                ?>
-            </p>
-        <?php endif ?>
-    </div>
+            <?php if (isset($this->validationResults->content)) : ?>
+                <p class="help-block">
+                    <?php
+                    foreach ((array) $this->validationResults->content as $validationResult) {
+                        echo $validationResult . '<br>';
+                    }
+                    ?>
+                </p>
+            <?php endif ?>
+        </div>
 
-    <div class="form-group">
-        <?php
-        $submit = $this->form->get('submit');
-        $submit->setAttributes(array(
-            'class' => 'btn btn-success',
-        ));
-        echo $this->formSubmit($this->form->get('submit'))
-        ?>
-        <label>&nbsp;<?php echo $this->translate('All fields are required. Contact info will not be published.') ?></label>
-    </div>
-<?php endif ?>
+        <div class="form-group">
+            <?php
+            $submit = $this->form->get('submit');
+            $submit->setAttributes(array(
+                'class' => 'btn btn-success',
+            ));
+            echo $this->formSubmit($this->form->get('submit'))
+            ?>
+            <label class="all-fields-are-required">&nbsp;<?php echo $this->translate('All fields are required. Contact info will not be published.') ?></label>
+        </div>
+    <?php endif ?>
 
-<?php echo $this->form()->closeTag();
+    <?php echo $this->form()->closeTag();?>
+</div>

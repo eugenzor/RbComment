@@ -124,7 +124,18 @@ return array(
              */
             'enabled' => false,
         ),
-        'date_format' => '%M %d, %Y %H:%i'
+        'date_format' => '%M %d, %Y %H:%i',
+
+
+        'thread_routes' => array(
+
+//            'route1' => array(
+//                'controller1' => true,
+//                'controller2' => array(
+//                    'action1' => true,
+//                )
+//            )
+        )
     ),
 
     'translator' => array(
