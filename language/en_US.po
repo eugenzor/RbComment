@@ -1,0 +1,66 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-17 15:07+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: /var/www/lesson.fam/module/RbComment/language/potool.phtml:1
+msgid "Author"
+msgstr ""
+
+#: /var/www/lesson.fam/module/RbComment/language/potool.phtml:2
+msgid "Comment"
+msgstr ""
+
+#: /var/www/lesson.fam/module/RbComment/language/potool.phtml:3
+msgid "Post"
+msgstr ""
+
+#: /var/www/lesson.fam/module/RbComment/view/theme/bootstrap3.phtml:3
+#: /var/www/lesson.fam/module/RbComment/view/theme/uikit.phtml:3
+#: /var/www/lesson.fam/module/RbComment/view/theme/default.phtml:49
+msgid "Comments"
+msgstr ""
+
+#: /var/www/lesson.fam/module/RbComment/view/theme/bootstrap3.phtml:97
+#: /var/www/lesson.fam/module/RbComment/view/theme/uikit.phtml:101
+#: /var/www/lesson.fam/module/RbComment/view/theme/default.phtml:141
+msgid "You are signed in as"
+msgstr ""
+
+#: /var/www/lesson.fam/module/RbComment/view/theme/bootstrap3.phtml:110
+#: /var/www/lesson.fam/module/RbComment/view/theme/uikit.phtml:114
+#: /var/www/lesson.fam/module/RbComment/view/theme/default.phtml:154
+msgid "Sign Out"
+msgstr ""
+
+#: /var/www/lesson.fam/module/RbComment/view/theme/bootstrap3.phtml:117
+#: /var/www/lesson.fam/module/RbComment/view/theme/uikit.phtml:121
+#: /var/www/lesson.fam/module/RbComment/view/theme/default.phtml:161
+msgid "You are not signed in. To be able to comment, please"
+msgstr ""
+
+#: /var/www/lesson.fam/module/RbComment/view/theme/bootstrap3.phtml:119
+#: /var/www/lesson.fam/module/RbComment/view/theme/uikit.phtml:123
+#: /var/www/lesson.fam/module/RbComment/view/theme/default.phtml:163
+msgid "Sign In"
+msgstr ""
+
+#: /var/www/lesson.fam/module/RbComment/view/theme/bootstrap3.phtml:159
+#: /var/www/lesson.fam/module/RbComment/view/theme/uikit.phtml:165
+#: /var/www/lesson.fam/module/RbComment/view/theme/default.phtml:198
+msgid "All fields are required. Contact info will not be published."
+msgstr ""

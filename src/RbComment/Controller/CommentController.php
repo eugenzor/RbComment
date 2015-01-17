@@ -24,7 +24,7 @@ class CommentController extends AbstractActionController
         $config = $this->getServiceLocator()->get('Config');
         $rbCommentConfig = (object) $config['rb_comment'];
 
-        $form = new CommentForm($rbCommentConfig->strings);
+        $form = new CommentForm();
 
         $request = $this->getRequest();
         if ($request->isPost()) {

@@ -60,18 +60,6 @@ return array(
          * Default visibility of the comments.
          */
         'default_visibility' => 1,
-        'strings' => array(
-            'author' => 'Author',
-            'contact' => 'Email',
-            'content' => 'Comment',
-            'submit' => 'Post',
-            'comments' => 'Comments',
-            'required' => 'All fields are required. Contact info will not be published.',
-            'signout' => 'Sign Out',
-            'signin' => 'Sign In',
-            'signedinas' => 'You are signed in as',
-            'notsignedin' => 'You are not signed in. To be able to comment, please ',
-        ),
         'email' => array(
             /**
              * Send email notifications.
@@ -135,6 +123,17 @@ return array(
              * This enables the Gravatar integration.
              */
             'enabled' => false,
+        ),
+        'date_format' => '%M %d, %Y %H:%i'
+    ),
+
+    'translator' => array(
+        'translation_file_patterns' => array(
+            array(
+                'type'     => 'gettext',
+                'base_dir' => __DIR__ . '/../language',
+                'pattern'  => '%s.mo',
+            ),
         ),
     ),
 );

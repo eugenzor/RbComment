@@ -13,6 +13,19 @@ class CommentTable
      */
     protected $tableGateway;
 
+
+    protected $dateFormat = '%M %d, %Y %H:%i';
+
+    public function setDateFormat($format)
+    {
+        $this->dateFormat = $format;
+    }
+
+    public function getDateFormat()
+    {
+        return $this->dateFormat;
+    }
+
     public function __construct(TableGateway $tableGateway)
     {
         $this->tableGateway = $tableGateway;
@@ -41,7 +54,7 @@ class CommentTable
         $select = new Select($this->tableGateway->getTable());
         $select->columns(array('id', 'author', 'content', 'contact',
                                'published_on_raw' => 'published_on',
-                               'published_on' => new Expression("DATE_FORMAT(published_on, '%M %d, %Y %H:%i')")))
+                               'published_on' => new Expression("DATE_FORMAT(published_on, '{$this->getDateFormat()}')")))
                ->where(array('thread' => $thread, 'visible' => 1))
                ->order('published_on_raw ASC');
 
@@ -61,7 +74,7 @@ class CommentTable
         $select = new Select($this->tableGateway->getTable());
         $select->columns(array('id', 'author', 'content', 'contact',
                                'published_on_raw' => 'published_on',
-                               'published_on' => new Expression("DATE_FORMAT(published_on, '%M %d, %Y %H:%i')")))
+                               'published_on' => new Expression("DATE_FORMAT(published_on, '{$this->getDateFormat()}')")))
                ->where(array('thread' => $thread, 'visible' => 0))
                ->order('published_on_raw ASC');
 

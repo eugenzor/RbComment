@@ -44,18 +44,17 @@ class Comment extends AbstractHelper implements ServiceLocatorAwareInterface
                                                 ->getMessagesFromNamespace('RbComment');
 
         $config = $serviceManager->get('Config');
-        $strings = $config['rb_comment']['strings'];
+        $commentTable = $serviceManager->get('RbComment\Model\CommentTable');
+        $commentTable->setDateFormat($config['rb_comment']['date_format']);
 
         echo $viewHelperManager->get('partial')->__invoke($invokablePartial, array(
-            'comments' => $serviceManager->get('RbComment\Model\CommentTable')
-                                         ->fetchAllForThread($thread),
-            'form' => new \RbComment\Form\CommentForm($strings),
+            'comments' => $commentTable->fetchAllForThread($thread),
+            'form' => new \RbComment\Form\CommentForm(),
             'thread' => $thread,
             'validationResults' => count($validationMessages) > 0
                 ? json_decode(array_shift($validationMessages))
                 : array(),
             'uri' => $uri,
-            'strings' => $strings,
             'zfc_user'=> $config['rb_comment']['zfc_user']['enabled'],
             'gravatar'=> $config['rb_comment']['gravatar']['enabled'],
         ));
